@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Recuperación - Dashboard</title>
+
+</head>
+<body>
+<header>
+    <h1>Panel de Gestión de Redenciones</h1>
+    <div class="auth-bar">
+        <label for="auth-user">Usuario:</label>
+        <select id="auth-user" onchange="actualizarCredenciales()">
+            <option value="comprador:cliente123">Comprador</option>
+            <option value="admin:admin123" selected>Admin</option>
+        </select>
+    </div>
+</header>
+
+<main class="container">
+    <section class="form-section">
+        <h2 id="form-title">Crear / Editar Registro</h2>
+        <div class="tab-selectors">
+            <button class="tab-btn active" onclick="switchTab('users')">Usuarios</button>
+            <button class="tab-btn" onclick="switchTab('promos')">Promociones</button>
+            <button class="tab-btn" onclick="switchTab('redemptions')">Redenciones</button>
+        </div>
+
+        <form id="crud-form" onsubmit="procesarFormulario(event)">
+            <input type="hidden" id="entity-id">
+
+            <div id="fields-users" class="form-fields">
+                <div class="group"><label>Email</label><input type="email" id="user-email"></div>
+                <div class="group"><label>Nombre</label><input type="text" id="user-name"></div>
+                <div class="group"><label>Género</label><select id="user-gender"><option value="true">Masculino</option><option value="false">Femenino</option></select></div>
+                <div class="group"><label>Cumpleaños</label><input type="date" id="user-birthday"></div>
+                <div class="group"><label>Contraseña</label><input type="password" id="user-password"></div>
+            </div>
+
+            <div id="fields-promos" class="form-fields hidden">
+                <div class="group"><label>Título</label><input type="text" id="promo-title"></div>
+                <div class="group"><label>Descripción</label><textarea id="promo-description"></textarea></div>
+                <div class="group"><label>Términos</label><textarea id="promo-terms"></textarea></div>
+                <div class="group"><label>Fecha de Expiración</label><input type="datetime-local" id="promo-expiration"></div>
+                <div class="group"><label>Límite de Personas</label><input type="number" id="promo-limit"></div>
+            </div>
+
+            <div id="fields-redemptions" class="form-fields hidden">
+                <div class="group"><label>Código de Canje</label><input type="text" id="redemption-code"></div>
+                <div class="group"><label>Usuario (ID)</label><select id="redemption-user-id"></select></div>
+                <div class="group"><label>Promoción (ID)</label><select id="redemption-promo-id"></select></div>
+                <div class="group"><label>¿Canjeado?</label><select id="redemption-status"><option value="true">Sí</option><option value="false">No</option></select></div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-save">Guardar Registro</button>
+                <button type="button" class="btn btn-cancel" onclick="limpiarFormulario()">Cancelar</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="data-section">
+        <div class="table-container">
+            <h3>Tabla: Usuarios</h3>
+            <table id="table-users">
+                <thead><tr><th>ID</th><th>Email</th><th>Nombre</th><th>Género</th><th>Cumpleaños</th><th>Acciones</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="table-container">
+            <h3>Tabla: Promociones</h3>
+            <table id="table-promos">
+                <thead><tr><th>ID</th><th>Título</th><th>Límite de Personas</th><th>Vencimiento</th><th>Acciones</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="table-container">
+            <h3>Tabla: Redenciones</h3>
+            <table id="table-redemptions">
+                <thead><tr><th>ID</th><th>Código</th><th>Usuario</th><th>Promo</th><th>Estado</th><th>Acciones</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<script src="js/facebook.js"></script>
+</body>
+</html>
